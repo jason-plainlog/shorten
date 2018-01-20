@@ -1,7 +1,7 @@
-require 'sinatra/base'
+require 'sinatra'
 
 class MyApp < Sinatra::Application
   get '/' do
-    "Hello, Jason!"
+    erb :index
   end
 end
