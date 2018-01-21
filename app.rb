@@ -25,8 +25,8 @@ class MyApp < Sinatra::Application
 		@key = hash(4)
 		@key = hash(4) while redis.exists(@key)
 
-		redis.set(@key, params['url'], {:ex => 2592000})
-		puts "#{@key} linked to #{params['url']}"
+		redis.hmset(@key, "url", params['url'], "password", params['password'])
+		puts "#{@key} linked to #{params['url']} with password #{params['password']}"
 
 		erb :index
 	end
@@ -34,7 +34,15 @@ class MyApp < Sinatra::Application
 	get '/:key' do |key|
 		halt(404) if redis.exists(key) == false
 
-		redirect redis.get(key)
+		redirect redis.hget(key, "url") if redis.hget(key, "password") == ""
+
+		erb :auth
+	end
+
+	post '/:key' do |key|
+		redirect redis.hget(key, "url") if params['password'] == redis.hget(key, "password")
+
+		erb :wrong_pwd
 	end
 
 	not_found do

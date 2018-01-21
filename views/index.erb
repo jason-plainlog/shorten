@@ -6,8 +6,11 @@
 		<form method="POST">
 			<fieldset>
 				<div class="form-group row">
-					<div class="col-sm-10">
+					<div class="col-sm-7">
 						<input class="form-control form-control-lg" type="text" placeholder="https://github.com/jason-plainlog/shorten" id="inputLarge" name="url" required="required" value="<%= params['url'] %>">
+					</div>
+					<div class="col-sm-3" style="padding-left: 0;">
+						<input class="form-control form-control-lg" type="password" placeholder="password (optional)" id="inputLarge" name="password">
 					</div>
 					<button type="submit" class="btn btn-primary col-sm-2">Shorten</button>
 				</div>
@@ -24,6 +27,15 @@
 			<p style="font-size: 1.2em;">
 				Hash each url into unique, short keys and store them into <a href="">Redis</a> key-value database.<br>
 				You can browse all the source codes on github: <a href="https://github.com/jason-plainlog/shorten" target="_blank"> jason-plainlog/shorten</a>.<br>
+			</p>
+		</div><br>
+
+		<h4>Change Logs</h4>
+		<div class="row">
+			<div class="col-sm-1"></div>
+			<p style="font-size: 1.2em;">
+				# 2018/1/21 &nbsp;&nbsp; Password Function Added<br>
+				# 2018/1/20 &nbsp;&nbsp; Deployed Online
 			</p>
 		</div>
 
