@@ -17,9 +17,7 @@
 			</fieldset>
 		</form><br>
 
-		<% if @key != "" %>
-		<h4>Short Link <small class="text-muted">Availalbe in 30 Days</small> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="<%= url %><%= @key %>"><%= url %><%= @key %></a></h4><br><br>
-		<% end %>
+		<h4>Oops! <small class="text-muted"> you can't shorten a shortened link like this.</small></h4><br><br>
 
 		<h4>How it works</h4>
 		<div class="row">
@@ -30,23 +28,15 @@
 			</p>
 		</div><br>
 
-		<h4>Status</h4>
-		<div class="row">
-			<div class="col-sm-1"></div>
-			<p style="font-size: 1.2em;">
-				Hashed <%= @dbsize %> Links
-			</p>
-		</div><br>
-
 		<h4>Change Logs</h4>
 		<div class="row">
 			<div class="col-sm-1"></div>
 			<p style="font-size: 1.2em;">
-				# 2018/1/22 &nbsp;&nbsp; Bugs Fixed and Status Added<br>
+				# 2018/1/22 &nbsp;&nbsp; Bugs Fixed<br>
 				# 2018/1/21 &nbsp;&nbsp; Password Function Added<br>
 				# 2018/1/20 &nbsp;&nbsp; Deployed Online
 			</p>
-		</div><br>
+		</div>
 
 	</div>
 	<div class="col-lg-1"></div>
