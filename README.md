@@ -1,6 +1,6 @@
 # Shorten
 
-A link shortener deveoped by Jason Hsieh.
+A link shortener developed by Jason Hsieh.
 
 ### Change Logs
 * 2018/1/22 Bugs Fixed
