@@ -31,9 +31,8 @@ class MyApp < Sinatra::Application
 		@key = hash(4)
 		@key = hash(4) while redis.exists(@key)
 
-		redis.hmset(@key, "url", params['url'], "password", params['password'])
+		redis.hmset(@key, "url", params['url'], "password", params['password'], "views", 0)
 		redis.expire(@key, 2592000)
-		puts "#{@key} linked to #{params['url']} with password #{params['password']}"
 
 		erb :index
 	end
@@ -41,15 +40,35 @@ class MyApp < Sinatra::Application
 	get '/:key' do |key|
 		halt(404) if redis.exists(key) == false
 
-		redirect redis.hget(key, "url") if redis.hget(key, "password") == ""
+		if redis.hget(key, "password") == ""
+			redis.hincrby(key, "views", 1)
+			redis.hincrby(key, Time.now().strftime("%-m/%-d"), 1)
+
+			redirect redis.hget(key, "url")
+		end
 
 		erb :auth
 	end
 
 	post '/:key' do |key|
-		redirect redis.hget(key, "url") if params['password'] == redis.hget(key, "password")
+		if params['password'] == redis.hget(key, "password")
+			redis.hincrby(key, "views", 1)
+			redis.hincrby(key, Time.now().strftime("%-m/%-d"), 1)
+
+			redirect redis.hget(key, "url")
+		end
 
 		erb :wrong_pwd
+	end
+
+	get '/logs/:key' do |key|
+		halt(404) if redis.exists(key) == false
+
+		@key = key
+		@keys = redis.hkeys(key)
+		@vals = redis.hvals(key)
+		
+		erb :log
 	end
 
 	not_found do
